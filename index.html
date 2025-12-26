@@ -1,81 +1,295 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Charte de la Classe</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ميثاق القسم 3D</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#f4f7ff;
+  --card:#ffffff;
+  --text:#111;
+  --main:#2563eb;
+}
+body.dark{
+  --bg:#0b0f1a;
+  --card:#12172b;
+  --text:#fff;
+}
+
+*{box-sizing:border-box;font-family:"Segoe UI",Tahoma;}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#1e293b,var(--bg));
+  color:var(--text);
+  transition:.5s;
+  perspective:1800px;
+}
+
+/* HEADER */
+.top{
+  text-align:center;
+  padding:35px 20px;
+  background:linear-gradient(135deg,#2563eb,#22c55e);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.controls{
+  position:absolute;
+  left:15px;
+  top:15px;
+  display:flex;
+  gap:10px;
+}
+.controls button{
+  border:none;
+  border-radius:50%;
+  padding:10px;
+  cursor:pointer;
+}
+
+/* 3D ROTATING CAROUSEL */
+.scene{
+  width:100%;
+  height:420px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  perspective:2000px;
+  margin-top:30px;
+}
+.carousel{
+  width:260px;
+  height:260px;
+  position:relative;
+  transform-style:preserve-3d;
+  animation:spin 28s infinite linear;
+}
+@keyframes spin{
+  from{transform:rotateY(0deg);}
+  to{transform:rotateY(360deg);}
+}
+
+.card{
+  position:absolute;
+  width:260px;
+  height:260px;
+  background:linear-gradient(145deg,var(--card),#00000010);
+  border-radius:30px;
+  padding:25px;
+  box-shadow:0 40px 90px #00000055;
+  transform-style:preserve-3d;
+  text-align:center;
+  cursor:pointer;
+  transition:.5s;
+}
+.card:hover{
+  transform:scale(1.08) translateZ(40px);
+}
+.card i{
+  font-size:44px;
+  color:var(--main);
+  margin-bottom:12px;
+}
+.card h3{margin:10px 0;}
+.card p{font-size:14px;opacity:.85}
+
+/* Position cards in circle */
+.card:nth-child(1){transform:rotateY(0deg) translateZ(420px);}
+.card:nth-child(2){transform:rotateY(36deg) translateZ(420px);}
+.card:nth-child(3){transform:rotateY(72deg) translateZ(420px);}
+.card:nth-child(4){transform:rotateY(108deg) translateZ(420px);}
+.card:nth-child(5){transform:rotateY(144deg) translateZ(420px);}
+.card:nth-child(6){transform:rotateY(180deg) translateZ(420px);}
+.card:nth-child(7){transform:rotateY(216deg) translateZ(420px);}
+.card:nth-child(8){transform:rotateY(252deg) translateZ(420px);}
+.card:nth-child(9){transform:rotateY(288deg) translateZ(420px);}
+.card:nth-child(10){transform:rotateY(324deg) translateZ(420px);}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000000b0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal.active{display:flex;}
+.page{
+  background:linear-gradient(160deg,var(--card),#00000020);
+  max-width:850px;
+  width:100%;
+  border-radius:35px;
+  padding:35px;
+  animation:pop .6s ease;
+}
+@keyframes pop{
+  from{opacity:0;transform:scale(.85);}
+  to{opacity:1;}
+}
+.page h2{color:var(--main);}
+.close{
+  position:absolute;
+  top:25px;
+  left:25px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  margin:40px 0 20px;
+  text-align:center;
+  opacity:.8;
+  font-size:14px;
+}
+
+/* PRINT */
+@media print{
+  .controls,.close{display:none;}
+  body{background:white;}
+}
+</style>
 </head>
+
 <body>
 
 <header class="top">
-  <h1>Charte de la Classe</h1>
-  <p>10 règles pour une classe respectueuse</p>
+  <h1 data-fr="Charte de la Classe" data-ar="ميثاق القسم">ميثاق القسم</h1>
+  <p data-fr="10 règles pour une classe idéale" data-ar="10 قوانين لقسم منظم">
+    10 قوانين لقسم منظم
+  </p>
+
+  <div class="controls">
+    <button onclick="toggleDark()">🌙</button>
+    <button onclick="toggleLang()">AR / FR</button>
+    <button onclick="window.print()">📄</button>
+  </div>
 </header>
 
-<section class="laws">
+<div class="scene">
+  <div class="carousel">
 
-  <a href="law1.html" class="law-card">
-    <span>01</span>
-    <h3>Respect</h3>
-    <p>Respecter les enseignants et les élèves</p>
-  </a>
+    <div class="card" onclick="openPage(0)">
+      <i class="fa-solid fa-handshake"></i>
+      <h3 data-fr="Respect" data-ar="الاحترام">الاحترام</h3>
+      <p data-fr="Respecter tous" data-ar="احترام الجميع">احترام الجميع</p>
+    </div>
 
-  <a href="law2.html" class="law-card">
-    <span>02</span>
-    <h3>Ponctualité</h3>
-    <p>Arriver à l’heure en classe</p>
-  </a>
+    <div class="card" onclick="openPage(1)">
+      <i class="fa-solid fa-clock"></i>
+      <h3 data-fr="Ponctualité" data-ar="الانضباط في الوقت">الانضباط في الوقت</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law3.html" class="law-card">
-    <span>03</span>
-    <h3>Matériel</h3>
-    <p>Prendre soin du matériel scolaire</p>
-  </a>
+    <div class="card" onclick="openPage(2)">
+      <i class="fa-solid fa-book"></i>
+      <h3 data-fr="Matériel" data-ar="الأدوات">الأدوات</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law4.html" class="law-card">
-    <span>04</span>
-    <h3>Silence</h3>
-    <p>Écouter attentivement en classe</p>
-  </a>
+    <div class="card" onclick="openPage(3)">
+      <i class="fa-solid fa-volume-off"></i>
+      <h3 data-fr="Silence" data-ar="الهدوء">الهدوء</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law5.html" class="law-card">
-    <span>05</span>
-    <h3>Participation</h3>
-    <p>Participer activement</p>
-  </a>
+    <div class="card" onclick="openPage(4)">
+      <i class="fa-solid fa-comments"></i>
+      <h3 data-fr="Participation" data-ar="المشاركة">المشاركة</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law6.html" class="law-card">
-    <span>06</span>
-    <h3>Propreté</h3>
-    <p>Garder la classe propre</p>
-  </a>
+    <div class="card" onclick="openPage(5)">
+      <i class="fa-solid fa-broom"></i>
+      <h3 data-fr="Propreté" data-ar="النظافة">النظافة</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law7.html" class="law-card">
-    <span>07</span>
-    <h3>Sécurité</h3>
-    <p>Respecter les règles de sécurité</p>
-  </a>
+    <div class="card" onclick="openPage(6)">
+      <i class="fa-solid fa-shield"></i>
+      <h3 data-fr="Sécurité" data-ar="السلامة">السلامة</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law8.html" class="law-card">
-    <span>08</span>
-    <h3>Politesse</h3>
-    <p>Utiliser un langage correct</p>
-  </a>
+    <div class="card" onclick="openPage(7)">
+      <i class="fa-solid fa-face-smile"></i>
+      <h3 data-fr="Politesse" data-ar="الأدب">الأدب</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law9.html" class="law-card">
-    <span>09</span>
-    <h3>Travail</h3>
-    <p>Faire ses devoirs</p>
-  </a>
+    <div class="card" onclick="openPage(8)">
+      <i class="fa-solid fa-pen"></i>
+      <h3 data-fr="Travail" data-ar="العمل">العمل</h3>
+      <p>—</p>
+    </div>
 
-  <a href="law10.html" class="law-card">
-    <span>10</span>
-    <h3>Responsabilité</h3>
-    <p>Être responsable de ses actes</p>
-  </a>
+    <div class="card" onclick="openPage(9)">
+      <i class="fa-solid fa-user-check"></i>
+      <h3 data-fr="Responsabilité" data-ar="المسؤولية">المسؤولية</h3>
+      <p>—</p>
+    </div>
 
-</section>
+  </div>
+</div>
+
+<footer>
+  <p><strong>من إنجاز:</strong></p>
+  <p>Abdelillah Nsilla – Bouchra Ahydoun – Wissal Alwani – Bouchra Azfad</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="page">
+    <span class="close" onclick="closePage()">✖</span>
+    <h2 id="title"></h2>
+    <p id="text"></p>
+  </div>
+</div>
+
+<script>
+let ar=true;
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+function toggleLang(){
+  ar=!ar;
+  document.documentElement.lang= ar?"ar":"fr";
+  document.documentElement.dir= ar?"rtl":"ltr";
+  document.querySelectorAll("[data-fr]").forEach(el=>{
+    el.textContent= ar?el.dataset.ar:el.dataset.fr;
+  });
+}
+
+const texts=[
+"الاحترام أساس العلاقات داخل القسم ويشمل احترام الأستاذ والزملاء وجميع العاملين.",
+"الالتزام بالوقت يعكس الانضباط والجدية داخل المؤسسة.",
+"المحافظة على الأدوات المدرسية مسؤولية جماعية.",
+"الهدوء يساعد على التركيز والفهم الجيد.",
+"المشاركة الإيجابية تنمّي القدرات.",
+"النظافة تحافظ على بيئة تعليمية صحية.",
+"السلامة تحمي الجميع من الأخطار.",
+"الأدب يعكس التربية الحسنة.",
+"العمل الجاد أساس النجاح.",
+"تحمل المسؤولية يبني شخصية ناضجة."
+];
+
+function openPage(i){
+  modal.classList.add("active");
+  title.innerText=document.querySelectorAll(".card h3")[i].innerText;
+  text.innerText=texts[i];
+}
+function closePage(){
+  modal.classList.remove("active");
+}
+</script>
 
 </body>
 </html>
